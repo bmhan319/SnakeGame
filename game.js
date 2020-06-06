@@ -1,5 +1,5 @@
 import { SNAKE_SPEED, update as updateSnake, draw as drawSnake }  from './snake.js'
-
+import { update as updateFood, draw as drawFood } from './food.js'
 
 let lastRenderTime = 0
 const gameBoard = document.querySelector('#game-board')
@@ -28,10 +28,12 @@ window.requestAnimationFrame(main)
 
 function update() {
   updateSnake()
+  updateFood()
 }
 
 function draw() {
   //this code is added to clear the gameboard before running the drawSnake function so that the tail graphics are removed everytime the snake moves
   gameBoard.innerHTML = ''
   drawSnake(gameBoard)
+  drawFood(gameBoard)
 }
