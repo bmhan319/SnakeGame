@@ -4,11 +4,13 @@ import { outsideGrid } from './grid.js'
 
 let lastRenderTime = 0
 let gameOver = false
+let score = 0
 const gameBoard = document.querySelector('#game-board')
 
 function main(currentTime) {
+  displayScore(score)
   if (gameOver) {
-    if ( confirm("You lost!  Press OK to restart.") ) {
+    if ( confirm(`You lost!  You scored ${score} points. Press OK to restart.`) ) {
       location.reload()
     } 
     return
@@ -49,4 +51,12 @@ function draw() {
 
 function checkDeath() {
   gameOver = outsideGrid( getSnakeHead() ) || snakeIntersection()
+}
+
+function displayScore(score) {
+  document.querySelector('.points').innerHTML = score
+}
+
+export function addScore(points) {
+  score = score + points
 }
