@@ -41,10 +41,19 @@ export function increaseExpansion(segments, speed) {
     EXPANSION_RATE = 3
     points = 30
     speed = 7
-  } else if (segments.length >= 60) {
+  } else if (segments.length >= 60 && segments.length < 100) {
     EXPANSION_RATE = 4
     points = 40
     speed = 8
+  } else if (segments.length >= 100 && segments.length < 150) {
+    EXPANSION_RATE = 5
+    points = 50
+    speed = 9
+  } else if (segments.length >= 150) {
+    EXPANSION_RATE = 6
+    points = 60
+    speed = 10
   }
+  //console.log("segment: ", segments.length, "speed: ", speed, "expansion rate: ", EXPANSION_RATE,"points: ", points )
   return speed
 }
