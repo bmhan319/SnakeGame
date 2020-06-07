@@ -1,11 +1,13 @@
 import { getInputDirection } from './input.js'
+import { increaseExpansion } from './food.js'
 
-export const SNAKE_SPEED = 5
+export let SNAKE_SPEED = 5
 const snakeBody = [ {x:11, y:11} ]
 let newSegments = 0
 
 export function update() {
   addSegments()
+  SNAKE_SPEED = increaseExpansion(snakeBody, SNAKE_SPEED)
 
   const inputDirection = getInputDirection()
   for (let i = snakeBody.length - 2; i >= 0; i--) {

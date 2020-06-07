@@ -4,8 +4,8 @@ import { updateScore } from './scores.js'
 
 
 let food = randomGridPosition()
-const EXPANSION_RATE = 1
-const points = 10
+let EXPANSION_RATE = 1
+let points = 10
 
 export function update() {
   if (onSnake(food)) {
@@ -30,4 +30,21 @@ function getRandomFoodPosition() {
     newFoodPosition = randomGridPosition()
   }
   return newFoodPosition
+}
+
+export function increaseExpansion(segments, speed) {
+  if (segments.length >= 10 && segments.length < 30) {
+    EXPANSION_RATE = 2
+    points = 20
+    speed = 6
+  } else if (segments.length >= 30 && segments.length < 60) {
+    EXPANSION_RATE = 3
+    points = 30
+    speed = 7
+  } else if (segments.length >= 60) {
+    EXPANSION_RATE = 4
+    points = 40
+    speed = 8
+  }
+  return speed
 }
