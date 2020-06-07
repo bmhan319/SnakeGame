@@ -1,20 +1,22 @@
 import { SNAKE_SPEED, update as updateSnake, draw as drawSnake, getSnakeHead, snakeIntersection }  from './snake.js'
 import { update as updateFood, draw as drawFood } from './food.js'
 import { outsideGrid } from './grid.js'
-import { displayScores, updateHighScore} from './scores.js'
- 
+import { displayScores } from './scores.js'
 
 let lastRenderTime = 0
 let gameOver = false
+let score = 0
+let highScore = 0
 const gameBoard = document.querySelector('#game-board')
-const scoreDiv = document.querySelector('.points')
-const highScoreDiv = document.querySelector('.high-points')
+
 
 
 function main(currentTime) {
-  displayScores(scoreDiv, highScoreDiv)
+  displayScores(highScore, score)
+  addHighScore()
+  
   if (gameOver) {
-    if ( confirm(`You lost!  You scored ${scoreDiv.innerHTML} points. Press OK to restart.`) ) {
+    if ( confirm(`You lost!  You scored ${score} points. Press OK to restart.`) ) {
       location.reload()
     } 
     return
@@ -44,7 +46,6 @@ function update() {
   updateSnake()
   updateFood()
   checkDeath()
-  updateHighScore()
 }
 
 function draw() {
@@ -58,3 +59,18 @@ function checkDeath() {
   gameOver = outsideGrid( getSnakeHead() ) || snakeIntersection()
 }
 
+
+
+//export function addScore(points) {
+//  score = score + points
+//}
+
+function addHighScore() {
+  if (sessionStorage.highScore !== undefined) {
+    highScore = sessionStorage.getItem("highScore")
+  } 
+  if (score > highScore) {
+    highScore = score
+    sessionStorage.setItem("highScore", highScore)
+  }
+}
